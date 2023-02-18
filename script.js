@@ -59,16 +59,26 @@ function adicionarProdutoNaTabela(produto) {
 
 function atualizarTotais() {
   let totalProdutosValue = 0;
-  let totalLucroValue = 0;
+  let totalComprasValue = 0;
+  let totalVendasValue = 0;
 
   for (let i = 0; i < produtos.length; i++) {
     totalProdutosValue += produtos[i].quantidadeProduto;
-    totalLucroValue += (produtos[i].precoVenda - produtos[i].precoCompra) * produtos[i].quantidadeProduto;
+    totalComprasValue += produtos[i].precoCompra * produtos[i].quantidadeProduto;
+    totalVendasValue += produtos[i].precoVenda * produtos[i].quantidadeProduto;
   }
 
+  const totalLucroValue = totalVendasValue - totalComprasValue;
   totalProdutos.innerHTML = totalProdutosValue;
-  totalLucro.innerHTML = `R$ ${totalLucroValue.toFixed(2)}`;
+
+  if (totalLucroValue < 0) {
+    totalLucro.innerHTML = `<span style="color: red;">Total de Prejuízo: R$ ${Math.abs(totalLucroValue).toFixed(2)}</span>`;
+  } else {
+    totalLucro.innerHTML = `Total de lucro: R$ ${totalLucroValue.toFixed(2)}`;
+  }
 }
+
+
 
 function limparFormulario() {
   document.getElementById('nome').value = '';
