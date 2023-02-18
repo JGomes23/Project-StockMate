@@ -145,14 +145,25 @@
     }
     
     @media screen and (max-width: 768px) {
-    form {
-    width: 80%;
-    }
+        #tabelaProdutos {
+          display: flex;
+          width: 100%;
+          overflow-x: auto;
+          justify-content: center;
+        }
+        #tabelaProdutos th,
+        #tabelaProdutos td {
+          display: block;
+          width: 100vw;
+          text-align: center;
+        }
+      }
+      
     
     #tabelaProdutosWrapper {
     width: 80%;
     max-width: none;
     overflow-x: auto;
     }
-    }
+    
  
