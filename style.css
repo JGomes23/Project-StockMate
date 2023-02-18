@@ -2,136 +2,136 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-
-  header {
+    }
+    header {
     text-align: center;
     background-color: #3a3a3a;
     color: #fff;
     padding: 20px;
     margin-bottom: 30px;
-  }
-
-  main {
+    }
+    
+    main {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  form {
+    }
+    
+    form {
     display: flex;
     flex-direction: column;
     width: 80%;
     margin-bottom: 20px;
-  }
-
-  .input-group {
+    }
+    
+    .input-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
-  }
-
-  label {
+    }
+    
+    label {
     margin-bottom: 5px;
-  }
-
-  input {
+    }
+    
+    input {
     padding: 5px;
     border-radius: 5px;
     border: solid;
     border-width: 1.5px;
     margin-bottom: 10px;
-  }
-
-  button {
+    }
+    
+    button {
     padding: 10px;
     border-radius: 5px;
     border: none;
     background-color: #3a3a3a;
     color: #fff;
     cursor: pointer;
-  }
-
-  #tabela {
+    }
+    
+    #tabela {
     margin-top: 30px;
     border-collapse: collapse;
     width: 100%;
-  }
-
-  #tabela th,
-  #tabela td {
+    }
+    
+    #tabela th,
+    #tabela td {
     text-align: center;
     padding: 8px;
     font-size: 16px;
-  }
-
-  #tabela th {
+    }
+    
+    #tabela th {
     background-color: #4caf50;
     color: white;
-  }
-
-  #tabela tr:nth-child(even) {
+    }
+    
+    #tabela tr:nth-child(even) {
     background-color: #f2f2f2;
-  }
-
-  #tabela tr:hover {
+    }
+    
+    #tabela tr:hover {
     background-color: #ddd;
-  }
-
-  .margem-verde {
+    }
+    
+    .margem-verde {
     color: green;
-  }
-
-  .margem-vermelha {
+    }
+    
+    .margem-vermelha {
     color: red;
-  }
-
-  #tabelaProdutosWrapper {
-    width: 80%;
+    }
+    
+    #tabelaProdutosWrapper {
+    width: 100%;
     max-width: 800px;
-  }
-
-  #tabelaProdutos {
+    overflow-x: auto;
+    }
+    
+    #tabelaProdutos {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-  }
-
-  #tabelaProdutos th,
-  #tabelaProdutos td {
+    }
+    
+    #tabelaProdutos th,
+    #tabelaProdutos td {
     padding: 10px;
     border: 1px solid #3a3a3a;
     text-align: center;
-  }
-
-  #tabelaProdutos th {
+    }
+    
+    #tabelaProdutos th {
     background-color: #3a3a3a;
     color: #fff;
-  }
-
-  #tabelaProdutos tr:nth-child(even) {
+    }
+    
+    #tabelaProdutos tr:nth-child(even) {
     background-color: #f2f2f2;
-  }
-
-  #totalWrapper {
+    }
+    
+    #totalWrapper {
     text-align: right;
-  }
-
-  #totalWrapper p {
+    }
+    
+    #totalWrapper p {
     margin-bottom: 5px;
-  }
-
-  #totalLucro {
+    }
+    
+    #totalLucro {
     font-weight: bold;
     color: green;
-  }
-
-  .negativo {
+    }
+    
+    .negativo {
     color: red;
     font-weight: bold;
-  }
-
-  .botao-excluir {
+    }
+    
+    .botao-excluir {
     background-color: #f44336;
     color: white;
     border: none;
@@ -142,4 +142,17 @@
     font-size: 16px;
     margin-bottom: 5px;
     cursor: pointer;
-  }
+    }
+    
+    @media screen and (max-width: 768px) {
+    form {
+    width: 80%;
+    }
+    
+    #tabelaProdutosWrapper {
+    width: 80%;
+    max-width: none;
+    overflow-x: auto;
+    }
+    }
+ 
