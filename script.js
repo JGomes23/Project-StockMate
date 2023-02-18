@@ -1,67 +1,79 @@
-const formProduto = document.getElementById("formProduto");
-const tabelaProdutos = document.getElementById("tabelaProdutos");
-const totalProdutos = document.getElementById("totalProdutos");
-const totalLucro = document.getElementById("totalLucro");
+const form = document.getElementById('formProduto');
+const tabelaProdutos = document.getElementById('tabelaProdutos');
+const totalProdutos = document.getElementById('totalProdutos');
+const totalLucro = document.getElementById('totalLucro');
 
 let produtos = [];
 
-function adicionarProduto(event) {
-    event.preventDefault();
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-    const nomeProduto = document.getElementById("nomeProduto").value;
-    const custoProduto = parseFloat(document.getElementById("custoProduto").value);
-    const precoProduto = parseFloat(document.getElementById("precoProduto").value);
-    const quantidadeProduto = parseInt(document.getElementById("quantidadeProduto").value);
+  const nome = document.getElementById('nome').value;
+  const precoCompra = parseFloat(document.getElementById('precoCompra').value);
+  const precoVenda = parseFloat(document.getElementById('precoVenda').value);
+  const quantidadeProduto = parseInt(document.getElementById('quantidadeProduto').value);
 
-    const lucro = (precoProduto - custoProduto) * quantidadeProduto;
+  const produto = {
+    nome,
+    precoCompra,
+    precoVenda,
+    quantidadeProduto
+  };
 
-    produtos.push({
-        nome: nomeProduto,
-        custo: custoProduto,
-        preco: precoProduto,
-        quantidade: quantidadeProduto,
-        lucro: lucro
-    });
+  produtos.push(produto);
+  adicionarProdutoNaTabela(produto);
+  atualizarTotais();
+  limparFormulario();
+});
 
-    renderizarTabela();
+function adicionarProdutoNaTabela(produto) {
+  const row = tabelaProdutos.insertRow();
+
+  const nomeCell = row.insertCell(0);
+  nomeCell.innerHTML = produto.nome;
+
+  const precoCompraCell = row.insertCell(1);
+  precoCompraCell.innerHTML = `R$ ${produto.precoCompra.toFixed(2)}`;
+
+  const precoVendaCell = row.insertCell(2);
+  precoVendaCell.innerHTML = `R$ ${produto.precoVenda.toFixed(2)}`;
+
+  const quantidadeCell = row.insertCell(3);
+  quantidadeCell.innerHTML = produto.quantidadeProduto;
+
+  const lucroCell = row.insertCell(4);
+  const lucro = (produto.precoVenda - produto.precoCompra) * produto.quantidadeProduto;
+  lucroCell.innerHTML = `R$ ${lucro.toFixed(2)}`;
+
+  const acoesCell = row.insertCell(5);
+  const excluirBtn = document.createElement('button');
+  excluirBtn.innerHTML = 'Excluir';
+  excluirBtn.addEventListener('click', () => {
+    const index = produtos.indexOf(produto);
+    produtos.splice(index, 1);
+    tabelaProdutos.deleteRow(row.rowIndex - 1);
     atualizarTotais();
-}
-
-function renderizarTabela() {
-    tabelaProdutos.querySelector("tbody").innerHTML = "";
-
-    produtos.forEach(produto => {
-        const lucroFormatado = produto.lucro.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-        const classeLucro = produto.lucro >= 0 ? "" : "negativo";
-
-        const linha = `
-            <tr>
-                <td>${produto.nome}</td>
-                <td>${produto.custo.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</td>
-                <td>${produto.preco.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</td>
-                <td>${produto.quantidade}</td>
-                <td class="${classeLucro}">${lucroFormatado}</td>
-            </tr>
-        `;
-
-        tabelaProdutos.querySelector("tbody").insertAdjacentHTML("beforeend", linha);
-    });
+  });
+  acoesCell.appendChild(excluirBtn);
 }
 
 function atualizarTotais() {
-    const total = produtos.length;
-    const lucroTotal = produtos.reduce((total, produto) => total + produto.lucro, 0);
+  let totalProdutosValue = 0;
+  let totalLucroValue = 0;
 
-    totalProdutos.textContent = total;
-    totalLucro.textContent = lucroTotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  for (let i = 0; i < produtos.length; i++) {
+    totalProdutosValue += produtos[i].quantidadeProduto;
+    totalLucroValue += (produtos[i].precoVenda - produtos[i].precoCompra) * produtos[i].quantidadeProduto;
+  }
 
-    if (lucroTotal >= 0) {
-        totalLucro.classList.remove("negativo");
-    } else {
-        totalLucro.classList.add("negativo");
-    }
+  totalProdutos.innerHTML = totalProdutosValue;
+  totalLucro.innerHTML = `R$ ${totalLucroValue.toFixed(2)}`;
 }
 
-formProduto.addEventListener("submit", adicionarProduto);
-
-    
+function limparFormulario() {
+  document.getElementById('nome').value = '';
+  document.getElementById('precoCompra').value = '';
+  document.getElementById('precoVenda').value = '';
+  document.getElementById('quantidadeProduto').value = '';
+  document.getElementById('nome').focus();
+}
